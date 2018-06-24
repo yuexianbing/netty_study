@@ -1,4 +1,4 @@
-package com.ybin.start;
+package com.ybin.start.netty.s1;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFuture;

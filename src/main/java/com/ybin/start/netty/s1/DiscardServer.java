@@ -1,4 +1,4 @@
-package com.ybin.start;
+package com.ybin.start.netty.s1;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
