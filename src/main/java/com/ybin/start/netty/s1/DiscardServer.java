@@ -1,5 +1,8 @@
 package com.ybin.start.netty.s1;
 
+import com.ybin.start.netty.s2.ChannelInboundA;
+import com.ybin.start.netty.s2.ChannelInboundB;
+import com.ybin.start.netty.s2.ChannelInboundC;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -29,14 +32,15 @@ public class DiscardServer {
         ServerBootstrap b = new ServerBootstrap();
         b.group(bossGroup, workGroup)
                 .channel(NioServerSocketChannel.class)
+                .option(ChannelOption.SO_BACKLOG, 128)
+                .childOption(ChannelOption.SO_KEEPALIVE, true)
+                .handler(new ChannelHandler())
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
-                        socketChannel.pipeline().addLast(new TimeServerHandler());
+                        socketChannel.pipeline().addLast(new ChannelInboundA(), new ChannelInboundB(), new ChannelInboundC());
                     }
-                })
-                .option(ChannelOption.SO_BACKLOG, 128)
-                .childOption(ChannelOption.SO_KEEPALIVE, true);
+                });
 
         try {
             ChannelFuture future = b.bind(port).sync();
@@ -48,7 +52,6 @@ public class DiscardServer {
             bossGroup.shutdownGracefully();
             workGroup.shutdownGracefully();
         }
-
     }
 
     public static void main(String[] args) {

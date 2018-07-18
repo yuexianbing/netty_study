@@ -17,22 +17,22 @@ public class DiscardServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-//        try {
-//            log.info("receive message!!!!!");
-//            ByteBuf buf = (ByteBuf)msg;
-//            while (buf.isReadable()) {
-//                System.out.print((char) buf.readByte());
-//                System.out.flush();
-//            }
-//            log.info("end !!!!!");
+        try {
+            log.info("receive message!!!!!");
+            ByteBuf buf = (ByteBuf)msg;
+            while (buf.isReadable()) {
+                System.out.print((char) buf.readByte());
+                System.out.flush();
+            }
+            log.info("end !!!!!");
 
-            ctx.write(msg);
-            ctx.flush();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            ReferenceCountUtil.release(msg);
-//        }
+//            ctx.write(msg);
+//            ctx.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ReferenceCountUtil.release(msg);
+        }
     }
 
     @Override
