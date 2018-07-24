@@ -12,5 +12,6 @@ public class PoolArenaTest {
     public static void main(String[] args) {
         PooledByteBufAllocator allocator = PooledByteBufAllocator.DEFAULT;
         allocator.directBuffer(16);
+        allocator.directBuffer(38);
     }
 }
